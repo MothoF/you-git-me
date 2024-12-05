@@ -1,5 +1,6 @@
 import pwinput
 from termcolor import colored
+import string
 
 # try and accept accordingly to make a program that will not crash
 # learn what the type hints are and how to use them e.g. -> str, -> bool, -> int
@@ -8,11 +9,16 @@ def get_password(prompt: str) -> str:
     """
     Get a password from the user.
     """
+    user_input_password = input(prompt)
+    return user_input_password
+
 
 def get_username(prompt: str) -> str:
     """
     Get a username from the user.
     """
+    user_input_username = input(prompt)
+    return user_input_username
 
 def validate_password(password: str) -> bool:
     """
@@ -24,6 +30,37 @@ def validate_password(password: str) -> bool:
     - at least one digit
     - at least one special character
     """
+    special_characters = string.punctuation
+    viable = False
+
+    if len(password) >= 8:
+        viable = True
+    
+    if not viable:
+        for character in password:
+            if character.isupper():
+                viable = True
+                break
+    
+    if not viable:
+        for character in password:
+            if character.islower():
+                viable = True
+                break
+    
+    if not viable:
+        for character in password:
+            if character.isdigit():
+                viable = True
+                break
+    
+    if not viable:
+        for character in password:
+            if character in special_characters:
+                viable = True
+                break
+    
+    return viable
 
 def validate_username(username: str) -> bool:
     """
